@@ -4,6 +4,13 @@
 
 
 'print("This is my first app on streamlit")'
-#- Item one
-##- Item two
-###  - Nested item
+- Item one
+ - Item two
+  -  - Nested item
+```python
+print("Hello, world!")
+```
+| Name  | Age |
+|-------|-----|
+| Alice | 30  |
+| Bob   | 25  |

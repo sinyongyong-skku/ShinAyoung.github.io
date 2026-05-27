@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shin Ayoung · Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080f04;
+    --bg2: #0f1a08;
+    --green: #6ab04c;
+    --green-light: #8bc34a;
+    --green-dim: rgba(106,176,76,.15);
+    --text: #eaf3de;
+    --text-muted: rgba(234,243,222,.5);
+    --text-dim: rgba(234,243,222,.28);
+    --border: rgba(106,176,76,.18);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 2px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 60px;
+    background: rgba(8,15,4,.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: var(--green); letter-spacing: .04em;
+  }
+  .nav-logo span { color: var(--text); font-style: italic; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none;
+    font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+    font-weight: 500; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--green-light); }
+
+  /* SECTION BASE */
+  section { padding: 120px 60px; max-width: 1100px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size: 11px; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--green); font-weight: 700; margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 4vw, 58px);
+    color: var(--text); line-height: 1.1; margin-bottom: 20px;
+  }
+  .divider {
+    width: 48px; height: 3px;
+    background: linear-gradient(90deg, var(--green), #c7ecee);
+    border-radius: 2px; margin-bottom: 52px;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 140px 60px 80px;
+    max-width: 1100px; margin: 0 auto;
+    position: relative;
+  }
+  .hero-bg-text {
+    position: fixed; top: 50%; right: -40px;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'DM Serif Display', serif;
+    font-size: 180px; color: rgba(106,176,76,.04);
+    white-space: nowrap; pointer-events: none; z-index: 0;
+    letter-spacing: -.02em;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green-dim); border: 1px solid var(--border);
+    border-radius: 30px; padding: 7px 18px;
+    font-size: 12px; color: var(--green-light);
+    letter-spacing: .1em; text-transform: uppercase; font-weight: 500;
+    margin-bottom: 28px;
+    animation: fadeUp .8s .1s both;
+  }
+  .hero-tag::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(58px, 9vw, 110px);
+    line-height: 1; color: var(--text);
+    animation: fadeUp .8s .2s both;
+  }
+  .hero-name em { color: var(--green); font-style: italic; }
+  .hero-subtitle {
+    font-size: clamp(16px, 2vw, 22px);
+    color: var(--text-muted); font-weight: 300;
+    margin: 20px 0 40px; max-width: 560px; line-height: 1.65;
+    animation: fadeUp .8s .35s both;
+  }
+  .hero-cta {
+    display: inline-flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp .8s .45s both;
+  }
+  .btn {
+    display: inline-block; padding: 14px 32px; border-radius: 40px;
+    font-size: 14px; font-weight: 500; text-decoration: none;
+    letter-spacing: .05em; transition: all .25s; cursor: pointer;
+  }
+  .btn-primary { background: var(--green); color: var(--bg); border: 1.5px solid var(--green); }
+  .btn-primary:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(106,176,76,.3); }
+  .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+  .btn-outline:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 60px;
+    display: flex; align-items: center; gap: 12px;
+    color: var(--text-dim); font-size: 12px; letter-spacing: .15em; text-transform: uppercase;
+    animation: fadeUp .8s .6s both;
+  }
+  .scroll-line {
+    width: 40px; height: 1px; background: var(--green); opacity: .4;
+    animation: lineGrow 1s 1.2s both;
+  }
+  @keyframes lineGrow { from{width:0} to{width:40px} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+
+  /* ABOUT */
+  #about { padding-top: 80px; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .about-text { font-size: 16px; color: var(--text-muted); line-height: 1.9; }
+  .about-text strong { color: var(--green-light); font-weight: 500; }
+  .info-card {
+    background: rgba(234,243,222,.03);
+    border: 1px solid var(--border); border-radius: 18px; padding: 36px;
+  }
+  .info-row {
+    display: flex; justify-content: space-between;
+    padding: 14px 0; border-bottom: 1px solid rgba(106,176,76,.08); font-size: 14px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-label { color: var(--text-dim); letter-spacing: .08em; font-size: 12px; text-transform: uppercase; font-weight: 500; }
+  .info-val { color: var(--text); font-weight: 400; }
+
+  /* PROJECTS */
+  .project-card {
+    background: rgba(234,243,222,.03);
+    border: 1px solid var(--border); border-radius: 20px;
+    padding: 44px 40px; margin-bottom: 24px;
+    position: relative; overflow: hidden; transition: border-color .25s;
+  }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #3b6d11, #6ab04c);
+  }
+  .project-card:hover { border-color: rgba(106,176,76,.4); }
+  .project-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 72px; color: rgba(106,176,76,.1);
+    position: absolute; right: 36px; top: 20px; line-height: 1;
+  }
+  .project-title { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--text); margin-bottom: 10px; }
+  .project-subtitle { font-size: 14px; color: var(--green); font-weight: 500; margin-bottom: 18px; letter-spacing: .05em; }
+  .project-desc { font-size: 15px; color: var(--text-muted); line-height: 1.75; margin-bottom: 28px; }
+
+  /* PRD BOX */
+  .prd-box {
+    background: rgba(106,176,76,.05);
+    border: 1px solid rgba(106,176,76,.2); border-radius: 14px; padding: 28px 28px 24px;
+  }
+  .prd-header {
+    font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--green); font-weight: 700; margin-bottom: 18px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .prd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .prd-item-label { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--text-dim); font-weight: 600; margin-bottom: 5px; }
+  .prd-item-val { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+  .prd-steps { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+  .prd-step {
+    background: rgba(234,243,222,.04); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px; flex: 1; min-width: 160px;
+  }
+  .prd-step-badge { font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 6px; }
+  .prd-step-text { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .tag {
+    background: var(--green-dim); border: 1px solid var(--border);
+    border-radius: 20px; padding: 5px 14px;
+    font-size: 12px; color: var(--green-light); font-weight: 500;
+  }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .skill-card {
+    background: rgba(234,243,222,.03); border: 1px solid var(--border);
+    border-radius: 14px; padding: 26px 22px; transition: border-color .2s;
+  }
+  .skill-card:hover { border-color: rgba(106,176,76,.4); }
+  .skill-icon { font-size: 30px; margin-bottom: 12px; }
+  .skill-cat { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--green); font-weight: 600; margin-bottom: 8px; }
+  .skill-items { font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+
+  /* CONTACT */
+  .contact-wrap { text-align: center; max-width: 620px; margin: 0 auto; }
+  .contact-email {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(22px, 3vw, 36px); color: var(--green);
+    margin: 32px 0; text-decoration: none; display: block; transition: color .2s;
+  }
+  .contact-email:hover { color: var(--green-light); }
+  .contact-note { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 40px; }
+  .social-row { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .social-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(234,243,222,.04); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 22px;
+    font-size: 13px; color: var(--text-muted); text-decoration: none;
+    transition: all .2s; font-weight: 500;
+  }
+  .social-btn:hover { border-color: var(--green); color: var(--green); }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 40px 60px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim); font-size: 13px; line-height: 2;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    #hero, section { padding-left: 24px; padding-right: 24px; }
+    .hero-scroll { left: 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .prd-grid { grid-template-columns: 1fr; }
+    .project-card { padding: 28px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero-bg-text">NOURISH</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Shin <span>Ayoung</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-tag">Dance × Big Data</div>
+  <h1 class="hero-name">Shin <em>Ayoung</em></h1>
+  <p class="hero-subtitle">
+    A dance student at Sungkyunkwan University exploring the intersection of movement and data.<br>
+    Bridging artistic sensibility with data visualization to create new forms of expression.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View Project →</a>
+    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-eyebrow">About Me</div>
+  <h2 class="section-title">Nice to meet you</h2>
+  <div class="divider"></div>
+  <div class="about-grid">
+    <div>
+      <p class="about-text">
+        Hi, I'm <strong>Shin Ayoung</strong>, a Dance major at Sungkyunkwan University (SKKU).
+        While studying dance, I discovered a fascinating connection between the language of movement
+        and the patterns found in data.
+        <br><br>
+        Through the <strong>Arts and Big Data</strong> course, I've been learning to visualize
+        data using tools like Python, Streamlit, and Plotly — applying my artistic eye to build
+        interactive dashboards that make complex information feel intuitive and beautiful.
+        <br><br>
+        I dream of a world where <strong>data art</strong> merges food culture, nutritional science,
+        and the aesthetics of movement into one cohesive experience.
+      </p>
+    </div>
+    <div class="info-card">
+      <div class="info-row">
+        <span class="info-label">Name</span>
+        <span class="info-val">Shin Ayoung (신아영)</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Student ID</span>
+        <span class="info-val">2023310108</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Major</span>
+        <span class="info-val">Dance</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">University</span>
+        <span class="info-val">Sungkyunkwan University (SKKU)</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Course</span>
+        <span class="info-val">Arts and Big Data</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Interests</span>
+        <span class="info-val">Data Visualization · Food Culture · Dance</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-eyebrow">Projects</div>
+  <h2 class="section-title">Final Project</h2>
+  <div class="divider"></div>
+
+  <div class="project-card">
+    <div class="project-num">01</div>
+    <div class="project-title">Nourish</div>
+    <div class="project-subtitle">🌿 Ingredient & Recipe Data Hub Dashboard</div>
+    <p class="project-desc">
+      An interactive dashboard that visualizes the nutritional data of whole-food ingredients
+      as radar charts, revealing each ingredient's unique "Nutritional Persona" at a glance.
+      Integrated with the Spoonacular API for real-time recipe search and a favorites manager
+      to save recipes you love. Rather than chasing trending food content, <strong style="color:#8bc34a">Nourish
+      puts objective nutritional data</strong> at the center of ingredient exploration.
+    </p>
+
+    <!-- PRD -->
+    <div class="prd-box">
+      <div class="prd-header">📋 Product Requirements Document (PRD)</div>
+      <div class="prd-grid">
+        <div>
+          <div class="prd-item-label">Topic</div>
+          <div class="prd-item-val">Ingredient Nutrition Data Visualization & Recipe Recommendation Hub</div>
+        </div>
+        <div>
+          <div class="prd-item-label">Why</div>
+          <div class="prd-item-val">I want to understand ingredients through nutritional data rather than trends — and explore how artistic food culture connects with data science.</div>
+        </div>
+        <div>
+          <div class="prd-item-label">Who</div>
+          <div class="prd-item-val">Health-conscious individuals, food art students, nutritionists, and data-driven meal planners</div>
+        </div>
+        <div>
+          <div class="prd-item-label">Where</div>
+          <div class="prd-item-val">Python + Streamlit web app · GitHub repository · Deployed on Streamlit Cloud</div>
+        </div>
+      </div>
+
+      <div class="prd-item-label" style="margin-bottom:10px;">Key Features (5)</div>
+      <div style="font-size:14px; color:var(--text-muted); line-height:1.9; margin-bottom:18px; padding-left:4px;">
+        ① Ingredient Persona Radar Charts &nbsp;·&nbsp;
+        ② Interactive Nutrition Comparison Tool &nbsp;·&nbsp;
+        ③ Spoonacular API Real-Time Recipe Search<br>
+        ④ User Favourites Manager &nbsp;·&nbsp;
+        ⑤ Data Hub Dashboard with 6 Interactive Charts
+      </div>
+
+      <div class="prd-item-label" style="margin-bottom:12px;">3-Step Build Plan</div>
+      <div class="prd-steps">
+        <div class="prd-step">
+          <div class="prd-step-badge">Step 1</div>
+          <div class="prd-step-text">Basic Layout + Sample Data<br>
+            <span style="color:rgba(234,243,222,.35); font-size:12px;">10 USDA-sourced ingredients × 6 nutrients · Sidebar · Ingredient card UI</span>
+          </div>
+        </div>
+        <div class="prd-step">
+          <div class="prd-step-badge">Step 2</div>
+          <div class="prd-step-text">Charts + Interactivity<br>
+            <span style="color:rgba(234,243,222,.35); font-size:12px;">Plotly radar, bar & bubble charts · Spoonacular API integration</span>
+          </div>
+        </div>
+        <div class="prd-step">
+          <div class="prd-step-badge">Step 3</div>
+          <div class="prd-step-text">Polish + Real Data<br>
+            <span style="color:rgba(234,243,222,.35); font-size:12px;">Favourites tab · Nourish brand theme · Streamlit Cloud deployment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">Streamlit</span>
+      <span class="tag">Plotly</span>
+      <span class="tag">Pandas</span>
+      <span class="tag">Spoonacular API</span>
+      <span class="tag">USDA FoodData Central</span>
+      <span class="tag">Data Visualization</span>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-eyebrow">Skills</div>
+  <h2 class="section-title">Tools & Abilities</h2>
+  <div class="divider"></div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🐍</div>
+      <div class="skill-cat">Programming</div>
+      <div class="skill-items">Python 3.9+<br>Pandas<br>Data Processing & Analysis</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <div class="skill-cat">Data Visualization</div>
+      <div class="skill-items">Plotly<br>Radar · Bar · Bubble Charts<br>Interactive Dashboards</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🖥</div>
+      <div class="skill-cat">Web & Deployment</div>
+      <div class="skill-items">Streamlit<br>GitHub Pages<br>Streamlit Cloud</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔗</div>
+      <div class="skill-cat">APIs & Data Sources</div>
+      <div class="skill-items">Spoonacular API<br>USDA FoodData Central<br>Open Food Facts</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💃</div>
+      <div class="skill-cat">Arts Major</div>
+      <div class="skill-items">Dance (Korean & Contemporary)<br>Choreography & Stage Planning<br>Performance Arts</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🌿</div>
+      <div class="skill-cat">Interdisciplinary</div>
+      <div class="skill-items">Art × Data Fusion<br>Food Culture Curation<br>Creative Storytelling</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-eyebrow">Contact</div>
+  <h2 class="section-title">Get in Touch</h2>
+  <div class="divider"></div>
+  <div class="contact-wrap">
+    <p class="contact-note">
+      Open to collaboration, feedback, or just a friendly hello.<br>
+      Let's meet where art and data intersect. 🌿
+    </p>
+    <a href="mailto:ayoung@skku.edu" class="contact-email">ayoung@skku.edu</a>
+    <div class="social-row">
+      <a href="https://github.com" target="_blank" class="social-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://skku.edu" target="_blank" class="social-btn">🎓 SKKU</a>
+      <a href="#projects" class="social-btn">🌿 Nourish Project</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="font-family:'DM Serif Display',serif; font-size:18px; color:var(--green); margin-bottom:8px;">Nour<em>ish</em></div>
+  Shin Ayoung · Dance · Student ID 2023310108 · Sungkyunkwan University (SKKU)<br>
+  Arts and Big Data · 2024
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('section[id], #hero');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => {
+          a.style.color = a.getAttribute('href') === '#' + e.target.id ? 'var(--green-light)' : '';
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => observer.observe(s));
+
+  const cards = document.querySelectorAll('.project-card, .skill-card, .info-card');
+  const cardObs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transition = `opacity .6s ${i * 0.08}s, transform .6s ${i * 0.08}s`;
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'none';
+      }
+    });
+  }, { threshold: 0.1 });
+  cards.forEach(c => {
+    c.style.opacity = '0';
+    c.style.transform = 'translateY(20px)';
+    cardObs.observe(c);
+  });
+</script>
+</body>
+</html>
